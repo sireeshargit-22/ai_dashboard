@@ -1,7 +1,7 @@
 from shiny import App, ui, render
 
 app_ui = ui.page_fluid(
-    ui.h2("AI Analysis Dashboard"),
+    ui.h2("AI Analysis Dashboard using python shiny"),
     ui.layout_sidebar(
         ui.sidebar(
             ui.input_select(
