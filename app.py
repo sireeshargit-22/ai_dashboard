@@ -1,7 +1,7 @@
 from shiny import App, ui, render
 
 app_ui = ui.page_fluid(
-    ui.h2("AI Analysis Dashboard"),
+    ui.h2("AI Analysis Dashboard using Python Shiny"),
     ui.layout_sidebar(
         ui.sidebar(
             ui.input_select(
@@ -14,7 +14,7 @@ app_ui = ui.page_fluid(
         ),
         ui.panel_main(
             ui.output_text("summary"),
-            ui.output_plot("performance_plot")
+            ui.output_table("performance_table")
         )
     )
 )
@@ -23,19 +23,19 @@ def server(input, output, session):
     @output
     @render.text
     def summary():
-        return f"Model: {input.model_choice()}, Dataset Size: {input.data_size()} MB"
+        return f"Model: {input.model_choice()}, Dataset Size: {input.data_size()} MB"
 
     @output
-    @render.plot
-    def performance_plot():
-        import matplotlib.pyplot as plt
-        import numpy as np
-        x = np.arange(1, 6)
-        y = np.random.rand(5) * input.data_size() / 100
-        plt.bar(x, y, color="skyblue")
-        plt.title(f"{input.model_choice()} Performance Metrics")
-        plt.xlabel("Metric Index")
-        plt.ylabel("Score")
-        return plt.gcf()
+    @render.table
+    def performance_table():
+        # Just a simple static table — no pandas/numpy
+        return [
+            ["Metric", "Score"],
+            ["Accuracy", "0.85"],
+            ["Precision", "0.80"],
+            ["Recall", "0.78"],
+            ["F1‑Score", "0.79"],
+            ["Latency", "120ms"]
+        ]
 
 app = App(app_ui, server)
